@@ -14,6 +14,7 @@ body {
 h1 {
   font-weight: 700;
   font-size: 2.5rem;
+  user-select: none;
 }
 
 a {
@@ -25,6 +26,11 @@ a {
   border-radius: 5px;
   border: 2px solid black;
   transition: all 0.1s ease-in-out;
+  user-select: none;
+}
+
+a i.fas.fa-chart-line {
+  margin-right: 1rem;
 }
 
 a:hover {
@@ -37,6 +43,10 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+header i.fas.fa-car {
+  margin-left: 1rem;
 }
 
 .parking-lots {
@@ -83,6 +93,7 @@ header {
   height: 400px;
   width: 10px;
   background: black;
+  border-radius: 1rem;
 }
 
 .timer {
