@@ -13,10 +13,10 @@ var myChart1 = new Chart(ctx, {
     data: {
         labels: labelset,
         datasets: [{
-            label: '# of Votes',
+            label: '# of ParkA',
             data: dataset,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.6)',
                 
             ],
             borderColor: [
@@ -43,10 +43,10 @@ var myChart2 = new Chart(ctx2, {
     data: {
         labels: labelset,
         datasets: [{
-            label: '# of Votes',
+            label: '# of ParkB',
             data: dataset,
             backgroundColor: [
-                'rgba(54, 162, 235, 0.2)'
+                'rgba(54, 162, 235, 0.6)'
             ],
             borderColor: [
                 'rgba(54, 162, 235, 1)'
@@ -72,10 +72,10 @@ var myChart3 = new Chart(ctx3, {
     data: {
         labels: labelset,
         datasets: [{
-            label: '# of Votes',
+            label: '# of ParkC',
             data: dataset,
             backgroundColor: [
-                'rgba(255, 206, 86, 0.2)'
+                'rgba(255, 206, 86, 0.6)'
             ],
             borderColor: [
                 'rgba(255, 206, 86, 1)'
@@ -101,10 +101,10 @@ var myChart4 = new Chart(ctx4, {
     data: {
         labels: labelset,
         datasets: [{
-            label: '# of Votes',
+            label: '# of Park4',
             data: dataset,
             backgroundColor: [
-                'rgba(75, 192, 192, 0.2)'
+                'rgba(75, 192, 192, 0.6)'
             ],
             borderColor: [
                 'rgba(75, 192, 192, 1)'
