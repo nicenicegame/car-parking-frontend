@@ -36,6 +36,13 @@ function countTime(lot) {
   }, 1000)
 }
 
+function removeTimeText(lot) {
+  const timer = lot.querySelector('.timer')
+  timer.style.display = 'none'
+  const timeText = timer.children[0]
+  timeText.innerText = '0:00'
+}
+
 function getTime(second) {
   return (
     Math.floor(second / 60) + ':' + ('0' + Math.floor(second % 60)).slice(-2)
@@ -59,6 +66,7 @@ function start() {
       const car = activeLot.querySelector('.car')
       const carImage = car.children[0]
       const randomCarIndex = getRandomCarIndex()
+
       carImage.src = `./images/car${randomCarIndex}.png`
       carImage.style.display = 'block'
       car.style.animation = 'car-in 1s ease-in-out forwards'
@@ -82,10 +90,11 @@ function start() {
         })
       }
 
-      //   setTimeout(() => {
-      //     prevState[lotData.id - 1] = 0
-      //     return
-      //   }, 2000)
+      setTimeout(() => {
+        prevState[lotData.id - 1] = 0
+        removeTimeText(activeLot)
+        return
+      }, 2000)
     }
   })
 }
@@ -113,7 +122,6 @@ setTimeout(() => {
       time: null,
     },
   ]
-  console.log(data[2])
 }, 5000)
 
 setInterval(() => {
