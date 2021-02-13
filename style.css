@@ -129,18 +129,22 @@ header i.fas.fa-car {
 @keyframes car-in {
   from {
     transform: translateY(500px);
+    display: none;
   }
   to {
     transform: translateY(0);
+    display: block;
   }
 }
 
 @keyframes car-out {
   from {
     transform: translateY(0);
+    display: block;
   }
   to {
     transform: translateY(500px);
+    display: none;
   }
 }
 /* graph */

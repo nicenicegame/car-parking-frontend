@@ -82,15 +82,20 @@ const start = () => {
       const randomCarIndex = getRandomCarIndex()
 
       carImage.src = `./images/car${randomCarIndex}.png`
-      console.log(carImage)
+
       carImage.style.display = 'block'
       car.style.animation = 'car-in 1s ease-in-out forwards'
-      car.addEventListener('animationend', () => {
-        activeLot.classList.add('active')
-        if (!isAvailable[lotIndex]) {
-          timer[lotIndex] = countTime(activeLot, lotIndex)
-        }
-      })
+      car.addEventListener(
+        'animationend',
+        () => {
+          activeLot.classList.add('active')
+          if (!isAvailable[lotIndex]) {
+            timer[lotIndex] = countTime(activeLot, lotIndex)
+          }
+          car.style.animation = null
+        },
+        { once: true }
+      )
       prevState[lotIndex] = 1
     } else if (lotData.status === 0 && prevState[lotIndex] === 1) {
       const activeLot = parkingLots[lotIndex]
@@ -103,15 +108,17 @@ const start = () => {
 
       const second = parkingTime[lotIndex]
 
-      if (car.style.animation) {
-        car.style.animation = 'car-out 1s ease-in-out forwards'
-        car.addEventListener('animationend', () => {
-          if (carImage.style.display === 'block') {
+      car.style.animation = 'car-out 1s ease-in-out forwards'
+      car.addEventListener(
+        'animationend',
+        () => {
+          if (car.style.animationName === 'car-out') {
             carImage.style.display = 'none'
-            car.style.animation = null
           }
-        })
-      }
+          car.style.animation = null
+        },
+        { once: true }
+      )
 
       const summary = activeLot.querySelector('.summary')
 
@@ -149,7 +156,7 @@ setTimeout(() => {
   data = [
     {
       id: 1,
-      status: 0,
+      status: 1,
       time: null,
     },
     {
