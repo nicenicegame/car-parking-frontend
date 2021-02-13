@@ -25,7 +25,7 @@ let data = [
   },
 ]
 
-function countTime(lot) {
+const countTime = (lot) => {
   const timer = lot.querySelector('.timer')
   timer.style.opacity = 1
   const timeText = timer.children[0]
@@ -36,7 +36,7 @@ function countTime(lot) {
   }, 1000)
 }
 
-function removeTimeText(lot) {
+const removeTimeText = (lot) => {
   const timer = lot.querySelector('.timer')
   const timeText = timer.children[0]
   timer.style.opacity = 0
@@ -45,21 +45,21 @@ function removeTimeText(lot) {
   })
 }
 
-function getTime(second) {
+const getTime = (second) => {
   return (
     Math.floor(second / 60) + ':' + ('0' + Math.floor(second % 60)).slice(-2)
   )
 }
 
-function getRandomCarIndex() {
+const getRandomCarIndex = () => {
   return Math.floor(Math.random() * 3) + 1
 }
 
-function fetchParkingData() {
+const fetchParkingData = () => {
   return
 }
 
-function start() {
+const start = () => {
   data.forEach((lotData) => {
     if (lotData.status === 1 && prevState[lotData.id - 1] === 0) {
       prevState[lotData.id - 1] = 1
