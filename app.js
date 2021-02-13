@@ -27,7 +27,7 @@ let data = [
 
 function countTime(lot) {
   const timer = lot.querySelector('.timer')
-  timer.style.display = 'block'
+  timer.style.opacity = 1
   const timeText = timer.children[0]
   let second = 0
   return setInterval(() => {
@@ -38,9 +38,11 @@ function countTime(lot) {
 
 function removeTimeText(lot) {
   const timer = lot.querySelector('.timer')
-  timer.style.display = 'none'
   const timeText = timer.children[0]
-  timeText.innerText = '0:00'
+  timer.style.opacity = 0
+  timer.addEventListener('transitionend', () => {
+    timeText.innerText = '0:00'
+  })
 }
 
 function getTime(second) {
@@ -94,7 +96,7 @@ function start() {
         prevState[lotData.id - 1] = 0
         removeTimeText(activeLot)
         return
-      }, 2000)
+      }, 3000)
     }
   })
 }
