@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parking-lots {
+  min-height: 80vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.lot {
+  width: 200px;
+  height: 300px;
+  position: relative;
+}
+
+.light {
+  background: greenyellow;
+  position: absolute;
+  top: -4rem;
+  left: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.lot.active .light {
+  background: red;
+}
+
+.car img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.line {
+  height: 400px;
+  width: 10px;
+  background: black;
+}
+
+.lot.active > .car img {
+  display: block;
+}
