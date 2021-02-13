@@ -126,3 +126,14 @@ header i.fas.fa-car {
     transform: translateY(500px);
   }
 }
+/* graph */
+
+.chart{
+  width: 600px;
+  height: 600px;
+
+}
+.this{
+  padding: 50px 50px;
+  display: inline-table;
+}
