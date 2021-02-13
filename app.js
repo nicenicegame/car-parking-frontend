@@ -1,6 +1,9 @@
 const parkingLots = document.querySelectorAll('.lot')
 const timer = [null, null, null, null]
+const parkingTime = [0, 0, 0, 0]
 const prevState = [0, 0, 0, 0]
+const money = document.querySelector('.money span')
+const isAvailable = [false, false, false, false]
 
 let data = [
   {
@@ -20,18 +23,19 @@ let data = [
   },
   {
     id: 4,
-    status: 1,
+    status: 0,
     time: null,
   },
 ]
 
-const countTime = (lot) => {
+const countTime = (lot, index) => {
   const timer = lot.querySelector('.timer')
   timer.style.opacity = 1
   const timeText = timer.children[0]
   let second = 0
   return setInterval(() => {
     second++
+    parkingTime[index] = second
     timeText.innerText = getTime(second)
   }, 1000)
 }
@@ -56,13 +60,20 @@ const getRandomCarIndex = () => {
 }
 
 const fetchParkingData = () => {
-  return
+  //   fetch('https://exceed11.cpsk-club.xyz/get_data')
+  //     .then((response) => response.json)
+  //     .then((jsonData) => console.log(jsonData))
+  //     .catch((err) => console.log(err))
 }
 
 const start = () => {
   data.forEach((lotData) => {
-    if (lotData.status === 1 && prevState[lotData.id - 1] === 0) {
-      prevState[lotData.id - 1] = 1
+    if (
+      lotData.status === 1 &&
+      prevState[lotData.id - 1] === 0 &&
+      !timer[lotData.id - 1] &&
+      !isAvailable[lotData.id - 1]
+    ) {
       const activeLot = parkingLots[lotData.id - 1]
 
       const car = activeLot.querySelector('.car')
@@ -74,14 +85,21 @@ const start = () => {
       car.style.animation = 'car-in 1s ease-in-out forwards'
       car.addEventListener('animationend', () => {
         activeLot.classList.add('active')
-        timer[lotData.id - 1] = countTime(activeLot)
+        if (!isAvailable[lotData.id - 1]) {
+          timer[lotData.id - 1] = countTime(activeLot, lotData.id - 1)
+        }
       })
+      prevState[lotData.id - 1] = 1
     } else if (lotData.status === 0 && prevState[lotData.id - 1] === 1) {
       const activeLot = parkingLots[lotData.id - 1]
+      isAvailable[lotData.id - 1] = true
+
       const car = activeLot.querySelector('.car')
       const carImage = car.children[0]
-
+      prevState[lotData.id - 1] = 0
       clearInterval(timer[lotData.id - 1])
+
+      const second = parkingTime[lotData.id - 1]
 
       if (car.style.animation) {
         car.style.animation = 'car-out 1s ease-in-out forwards'
@@ -92,11 +110,32 @@ const start = () => {
         })
       }
 
+      const summary = activeLot.querySelector('.summary')
+
+      const cost = summary.children[0]
+      cost.innerHTML = `
+              Total ${getTime(second)} = ${second * 20}$ <br />
+              Click to pay
+              `
+
       setTimeout(() => {
-        prevState[lotData.id - 1] = 0
         removeTimeText(activeLot)
+        summary.style.display = 'block'
+      }, 1000)
+
+      new Promise((resolve, reject) => {
+        summary.addEventListener('click', () => {
+          resolve()
+        })
+      }).then(() => {
+        summary.style.display = 'none'
+        money.innerText = `${parseInt(money.innerText) + second * 20}`
+        prevState[lotData.id - 1] = 0
+        parkingTime[lotData.id - 1] = 0
+        timer[lotData.id - 1] = null
+        isAvailable[lotData.id - 1] = false
         return
-      }, 3000)
+      })
     }
   })
 }
@@ -120,11 +159,61 @@ setTimeout(() => {
     },
     {
       id: 4,
-      status: 1,
+      status: 0,
       time: null,
     },
   ]
 }, 5000)
+
+setTimeout(() => {
+  data = [
+    {
+      id: 1,
+      status: 0,
+      time: null,
+    },
+    {
+      id: 2,
+      status: 0,
+      time: null,
+    },
+    {
+      id: 3,
+      status: 1,
+      time: null,
+    },
+    {
+      id: 4,
+      status: 0,
+      time: null,
+    },
+  ]
+}, 10000)
+
+setTimeout(() => {
+  data = [
+    {
+      id: 1,
+      status: 0,
+      time: null,
+    },
+    {
+      id: 2,
+      status: 0,
+      time: null,
+    },
+    {
+      id: 3,
+      status: 0,
+      time: null,
+    },
+    {
+      id: 4,
+      status: 0,
+      time: null,
+    },
+  ]
+}, 15000)
 
 setInterval(() => {
   fetchParkingData()

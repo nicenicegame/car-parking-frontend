@@ -60,6 +60,9 @@ header i.fas.fa-car {
   width: 200px;
   height: 300px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .light {
@@ -78,8 +81,8 @@ header i.fas.fa-car {
 }
 
 .car {
-  width: 200px;
-  height: 300px;
+  width: 150px;
+  height: 250px;
 }
 
 .car img {
@@ -107,6 +110,20 @@ header i.fas.fa-car {
   left: 50%;
   transform: translateX(-50%);
   transition: opacity 0.1s ease-in-out;
+}
+
+.summary {
+  position: absolute;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  background: white;
+  border-radius: 5px;
+  bottom: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  display: none;
 }
 
 @keyframes car-in {
