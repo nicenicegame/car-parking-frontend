@@ -130,7 +130,7 @@ const start = () => {
         summary.addEventListener('click', () => {
           resolve()
           summary.style.display = 'none'
-          money.innerText = `${parseInt(money.innerText) + second * 20}`
+          money.innerText = `${parseInt(money.innerText) + (second * 20)}`
           console.log(money.innerText)
           activeLot.classList.remove('active')
           prevState[lotIndex] = 0
