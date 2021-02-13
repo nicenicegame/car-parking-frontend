@@ -1,3 +1,7 @@
+const parkingLots = document.querySelectorAll('.lot')
+const timer = [null, null, null, null]
+const prevState = [0, 0, 0, 0]
+
 let data = [
   {
     id: 1,
@@ -21,16 +25,14 @@ let data = [
   },
 ]
 
-const parkingLots = document.querySelectorAll('.lot')
-
 function countTime(lot) {
   const timer = lot.querySelector('.timer')
   timer.style.display = 'block'
   const timeText = timer.children[0]
   let second = 0
   return setInterval(() => {
-    timeText.innerText = getTime(second)
     second++
+    timeText.innerText = getTime(second)
   }, 1000)
 }
 
@@ -40,8 +42,9 @@ function getTime(second) {
   )
 }
 
-const timer = [null, null, null, null]
-const prevState = [0, 0, 0, 0]
+function fetchParkingData() {
+  return
+}
 
 function start() {
   data.forEach((lotData) => {
@@ -52,9 +55,12 @@ function start() {
       timer[lotData.id - 1] = countTime(activeLot)
     } else if (lotData.status === 0 && prevState[lotData.id - 1] === 1) {
       const activeLot = parkingLots[lotData.id - 1]
+      prevState[lotData.id - 1] = 0
       activeLot.classList.remove('active')
-      console.log('Stopped')
       clearInterval(timer[lotData.id - 1])
+      setTimeout(() => {
+        return
+      }, 2000)
     }
   })
 }
@@ -88,5 +94,6 @@ setTimeout(() => {
 // countTime(parkingLots[2])
 // countTime(parkingLots[3])
 setInterval(() => {
+  fetchParkingData()
   start()
 }, 1000)
