@@ -68,45 +68,48 @@ const fetchParkingData = () => {
 
 const start = () => {
   data.forEach((lotData) => {
+    let lotIndex = lotData.id - 1
     if (
       lotData.status === 1 &&
-      prevState[lotData.id - 1] === 0 &&
-      !timer[lotData.id - 1] &&
-      !isAvailable[lotData.id - 1]
+      prevState[lotIndex] === 0 &&
+      !timer[lotIndex] &&
+      !isAvailable[lotIndex]
     ) {
-      const activeLot = parkingLots[lotData.id - 1]
+      const activeLot = parkingLots[lotIndex]
 
       const car = activeLot.querySelector('.car')
       const carImage = car.children[0]
       const randomCarIndex = getRandomCarIndex()
 
       carImage.src = `./images/car${randomCarIndex}.png`
+      console.log(carImage)
       carImage.style.display = 'block'
       car.style.animation = 'car-in 1s ease-in-out forwards'
       car.addEventListener('animationend', () => {
         activeLot.classList.add('active')
-        if (!isAvailable[lotData.id - 1]) {
-          timer[lotData.id - 1] = countTime(activeLot, lotData.id - 1)
+        if (!isAvailable[lotIndex]) {
+          timer[lotIndex] = countTime(activeLot, lotIndex)
         }
       })
-      prevState[lotData.id - 1] = 1
-    } else if (lotData.status === 0 && prevState[lotData.id - 1] === 1) {
-      const activeLot = parkingLots[lotData.id - 1]
-      isAvailable[lotData.id - 1] = true
+      prevState[lotIndex] = 1
+    } else if (lotData.status === 0 && prevState[lotIndex] === 1) {
+      const activeLot = parkingLots[lotIndex]
+      isAvailable[lotIndex] = true
 
       const car = activeLot.querySelector('.car')
       const carImage = car.children[0]
-      prevState[lotData.id - 1] = 0
-      clearInterval(timer[lotData.id - 1])
+      prevState[lotIndex] = 0
+      clearInterval(timer[lotIndex])
 
-      const second = parkingTime[lotData.id - 1]
+      const second = parkingTime[lotIndex]
 
       if (car.style.animation) {
         car.style.animation = 'car-out 1s ease-in-out forwards'
         car.addEventListener('animationend', () => {
-          activeLot.classList.remove('active')
-          carImage.style.display = 'none'
-          car.style.animation = null
+          if (carImage.style.display === 'block') {
+            carImage.style.display = 'none'
+            car.style.animation = null
+          }
         })
       }
 
@@ -126,15 +129,17 @@ const start = () => {
       new Promise((resolve, reject) => {
         summary.addEventListener('click', () => {
           resolve()
+          summary.style.display = 'none'
+          money.innerText = `${parseInt(money.innerText) + second * 20}`
+          console.log(money.innerText)
+          activeLot.classList.remove('active')
+          prevState[lotIndex] = 0
+          parkingTime[lotIndex] = 0
+          timer[lotIndex] = null
+          isAvailable[lotIndex] = false
         })
       }).then(() => {
-        summary.style.display = 'none'
-        money.innerText = `${parseInt(money.innerText) + second * 20}`
-        prevState[lotData.id - 1] = 0
-        parkingTime[lotData.id - 1] = 0
-        timer[lotData.id - 1] = null
-        isAvailable[lotData.id - 1] = false
-        return
+        console.log('done')
       })
     }
   })
@@ -163,7 +168,7 @@ setTimeout(() => {
       time: null,
     },
   ]
-}, 5000)
+}, 6000)
 
 setTimeout(() => {
   data = [

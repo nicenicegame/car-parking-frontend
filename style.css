@@ -145,12 +145,11 @@ header i.fas.fa-car {
 }
 /* graph */
 
-.chart{
+.chart {
   width: 600px;
   height: 600px;
-
 }
-.this{
+.this {
   padding: 50px 70px;
   display: inline-table;
 }
