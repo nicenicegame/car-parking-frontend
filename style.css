@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
 header {
   min-height: 20vh;
   display: flex;
@@ -37,6 +47,11 @@ header {
   background: red;
 }
 
+.car {
+  width: 200px;
+  height: 300px;
+}
+
 .car img {
   width: 100%;
   height: 100%;
@@ -50,17 +65,36 @@ header {
   background: black;
 }
 
-.lot.active > .car img {
+/* .lot.active > .car img {
   display: block;
-}
+} */
 
 .timer {
   display: none;
   position: absolute;
   padding: 1rem;
+  border-radius: 1rem;
   background: black;
   color: white;
   top: -8rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+@keyframes car-in {
+  from {
+    transform: translateY(500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes car-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(500px);
+  }
 }
