@@ -53,3 +53,14 @@ header {
 .lot.active > .car img {
   display: block;
 }
+
+.timer {
+  display: none;
+  position: absolute;
+  padding: 1rem;
+  background: black;
+  color: white;
+  top: -8rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
