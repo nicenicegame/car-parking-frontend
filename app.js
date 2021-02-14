@@ -112,9 +112,7 @@ const start = () => {
       car.addEventListener(
         'animationend',
         () => {
-          if (car.style.animationName === 'car-out') {
-            carImage.style.display = 'none'
-          }
+          carImage.style.display = 'none'
           car.style.animation = null
         },
         { once: true }
@@ -134,17 +132,21 @@ const start = () => {
       }, 1000)
 
       new Promise((resolve, reject) => {
-        summary.addEventListener('click', () => {
-          resolve()
-          summary.style.display = 'none'
-          money.innerText = `${parseInt(money.innerText) + second * 20}`
-          console.log(money.innerText)
-          activeLot.classList.remove('active')
-          prevState[lotIndex] = 0
-          parkingTime[lotIndex] = 0
-          timer[lotIndex] = null
-          isAvailable[lotIndex] = false
-        })
+        summary.addEventListener(
+          'click',
+          () => {
+            resolve()
+            summary.style.display = 'none'
+            money.innerText = `${parseInt(money.innerText) + second * 20}`
+            console.log(money.innerText)
+            activeLot.classList.remove('active')
+            prevState[lotIndex] = 0
+            parkingTime[lotIndex] = 0
+            timer[lotIndex] = null
+            isAvailable[lotIndex] = false
+          },
+          { once: true }
+        )
       }).then(() => {
         console.log('done')
       })
